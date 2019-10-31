@@ -1,7 +1,7 @@
 package com.training.sanity.tests;
 
 import com.training.pom.LoginPOM;
-import com.training.pom.CustomerListPOM;
+import com.training.pom.ReturnOrderPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
@@ -18,18 +18,19 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UniformCustomerListUNF_017 {
+public class UniformReturnOrderUNF_018 {
 
 	private WebDriver driver;
 	private String adminUrl;
 	private LoginPOM loginPOM;
-	private CustomerListPOM customerListPOM;
+	private ReturnOrderPOM returnOrderPOM;
 	private static Properties properties;
 
 	@Test
-	public void filterCustomer() {
-		customerListPOM.customerList();
-		customerListPOM.searchByCustomer();
+	public void identifyReturnedOrder() {
+		returnOrderPOM.validateReturnOrderList();
+		returnOrderPOM.searchByID();
+		returnOrderPOM.searchByCustomer();
 	}
 
 	@BeforeClass
@@ -52,7 +53,7 @@ public class UniformCustomerListUNF_017 {
 		loginPOM.sendPassword("admin@123");
 		loginPOM.clickLoginBtn();
 
-		customerListPOM = new CustomerListPOM(driver);
+		returnOrderPOM = new ReturnOrderPOM(driver);
 
 	}
 

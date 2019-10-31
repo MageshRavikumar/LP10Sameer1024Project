@@ -1,7 +1,8 @@
 package com.training.sanity.tests;
 
 import com.training.pom.LoginPOM;
-import com.training.pom.ReturnOrderPOM;
+import com.training.pom.CustomerListPOM;
+import com.training.pom.OrderPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
@@ -15,21 +16,28 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UniformDeleteOrderUNF_018 {
+public class UniformFilterOrderUNF_47 {
 
 	private WebDriver driver;
 	private String adminUrl;
 	private LoginPOM loginPOM;
-	private ReturnOrderPOM returnOrderPOM;
+	private OrderPOM filterOrderPOM;
 	private static Properties properties;
 
 	@Test
-	public void identifyReturnedOrder() {
-		returnOrderPOM.validateReturnOrderList();
-		returnOrderPOM.searchByID();
-		returnOrderPOM.searchByCustomer();
+	public void filterOrder() {
+		filterOrderPOM.orderList();
+		filterOrderPOM.validatestep1();
+		filterOrderPOM.validatestep2();
+		filterOrderPOM.searchByID();
+		filterOrderPOM.searchByStatus();
+		filterOrderPOM.searchByCustomer();
+		filterOrderPOM.searchByTotalPrice();
+		filterOrderPOM.searchByAddedDate();
+		filterOrderPOM.searchByModifiedDate();
 	}
 
 	@BeforeClass
@@ -52,19 +60,19 @@ public class UniformDeleteOrderUNF_018 {
 		loginPOM.sendPassword("admin@123");
 		loginPOM.clickLoginBtn();
 
-		returnOrderPOM = new ReturnOrderPOM(driver);
+		filterOrderPOM = new OrderPOM (driver);
 
 	}
 
 	@AfterMethod
 	public void afterMethod() {
-		// driver.findElement(By.xpath("//li[@id='dashboard']/a")).click();
+		//driver.findElement(By.xpath("//li[@id='dashboard']/a")).click();
 	}
 
 	@AfterClass
 	public void afterClass() {
-		// driver.findElement(By.xpath("//*[@id='header']//span[@class='hidden-xshidden-sm hidden-md']")).click();
-		// driver.close();
+		//driver.findElement(By.xpath("//*[@id='header']//span[@class='hidden-xs hidden-sm hidden-md']")).click();
+		//driver.close();
 	}
 
 }

@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import com.training.generics.ScreenShot;
 import com.training.pom.AddUniformPOM;
 import com.training.pom.LoginPOM;
-import com.training.pom.DeleteOrderPOM;
+import com.training.pom.OrderPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
@@ -33,14 +33,15 @@ public class UniformDeleteOrderUNF_016 {
 	private String adminUrl;
 	private LoginPOM loginPOM;
 	private AddUniformPOM addUniformPOM;
-	private DeleteOrderPOM deleteOrderPOM;
+	private OrderPOM deleteOrderPOM;
 	private static Properties properties;
 
 	@Test 
 	public void deleteOrder() {
 		
-		deleteOrderPOM = new DeleteOrderPOM(driver);
+		deleteOrderPOM = new OrderPOM(driver);
 		deleteOrderPOM.validatestep1();
+		deleteOrderPOM.orderList();
 		deleteOrderPOM.validatestep2();
 		deleteOrderPOM.validatestep3();		
 		deleteOrderPOM.validateDeleteOrder();	

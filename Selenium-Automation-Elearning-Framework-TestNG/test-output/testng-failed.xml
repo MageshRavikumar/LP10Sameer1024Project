@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.training.sanity.tests.UniformCustomerListUNF_017">
+      <class name="com.training.sanity.tests.UniformFilterOrderUNF_47">
         <methods>
           <include name="afterClass"/>
-          <include name="filterCustomer"/>
-          <include name="setUpBeforeClass"/>
           <include name="setUp"/>
           <include name="afterMethod"/>
+          <include name="setUpBeforeClass"/>
+          <include name="filterOrder"/>
         </methods>
-      </class> <!-- com.training.sanity.tests.UniformCustomerListUNF_017 -->
+      </class> <!-- com.training.sanity.tests.UniformFilterOrderUNF_47 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
