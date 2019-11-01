@@ -32,12 +32,12 @@ public class UniformFilterOrderUNF_47 {
 		filterOrderPOM.orderList();
 		filterOrderPOM.validatestep1();
 		filterOrderPOM.validatestep2();
-		filterOrderPOM.searchByID();
-		filterOrderPOM.searchByStatus();
-		filterOrderPOM.searchByCustomer();
-		filterOrderPOM.searchByTotalPrice();
-		filterOrderPOM.searchByAddedDate();
-		filterOrderPOM.searchByModifiedDate();
+		filterOrderPOM.searchByID("133");
+		filterOrderPOM.searchByStatus("1");
+		filterOrderPOM.searchByCustomer("Admin Test");
+		filterOrderPOM.searchByTotalPrice("525");
+		filterOrderPOM.searchByAddedDate("2019-10-16");
+		filterOrderPOM.searchByModifiedDate("2019-10-16");
 	}
 
 	@BeforeClass
@@ -66,13 +66,13 @@ public class UniformFilterOrderUNF_47 {
 
 	@AfterMethod
 	public void afterMethod() {
-		//driver.findElement(By.xpath("//li[@id='dashboard']/a")).click();
+		driver.findElement(By.xpath("//li[@id='dashboard']/a")).click();
 	}
 
 	@AfterClass
 	public void afterClass() {
-		//driver.findElement(By.xpath("//*[@id='header']//span[@class='hidden-xs hidden-sm hidden-md']")).click();
-		//driver.close();
+		driver.findElement(By.xpath("//*[@id='header']//span[@class='hidden-xs hidden-sm hidden-md']")).click();
+		driver.close();
 	}
 
 }

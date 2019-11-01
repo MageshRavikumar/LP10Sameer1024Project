@@ -1,5 +1,6 @@
 package com.training.pom;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -88,8 +89,6 @@ public class OrderPOM {
 		act = new Actions(driver);
 		act.moveToElement(order).build().perform();
 
-		ts.captureScreenShot("UNF_016_step1");
-
 		order = driver.findElement(By.xpath("//li[@id='sale']/ul/li[1]/a"));
 		Assert.assertEquals(order.getText(), "Orders");
 		order = driver.findElement(By.xpath("//li[@id='sale']/ul/li[2]/a"));
@@ -162,7 +161,7 @@ public class OrderPOM {
 		order.click();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		Assert.assertTrue(order.isSelected());
-		ts.captureScreenShot("UNF_016_step2-3");
+		ts.captureScreenShot("UNF_016_OrderBeforeDelete");
 
 	}
 
@@ -206,7 +205,7 @@ public class OrderPOM {
 		// validating record deleted from table row
 		Assert.assertNotEquals(order.getText(), deletedorder);
 		System.out.println("should not match on index: " + index + " " + deletedorder + " " + order.getText());
-		ts.captureScreenShot("UNF_016_step4-5");
+		ts.captureScreenShot("UNF_016_OrderAfterDelete");
 
 	}
 
@@ -229,14 +228,14 @@ public class OrderPOM {
 
 	}
 
-	public void searchByID() {
+	public void searchByID(String orderid) {
 
 		boolean pass = false;
 
 		// input id
-		sendOrderID("133");
+		sendOrderID(orderid);
 
-		Assert.assertTrue(orderID.getAttribute("value").trim().equals("133"));
+		Assert.assertTrue(orderID.getAttribute("value").trim().equals(orderid));
 
 		// filter return order based on id
 		driver.findElement(By.xpath("//button[@id='button-filter']")).click();
@@ -250,7 +249,7 @@ public class OrderPOM {
 			pass = false;
 		} else {
 			for (WebElement order : orderList) {
-				if (!order.getText().equals("133")) {
+				if (!order.getText().equals(orderid)) {
 					pass = false;
 					break;
 				} else
@@ -266,12 +265,12 @@ public class OrderPOM {
 
 	}
 
-	public void searchByStatus() {
+	public void searchByStatus(String status) {
 
 		boolean pass = false;
 
 		// input Status
-		sendOrderStatus("1");
+		sendOrderStatus(status);
 
 		Assert.assertTrue((new Select(orderStatus)).getAllSelectedOptions().get(0).getText().trim().equals("Pending"));
 
@@ -303,14 +302,14 @@ public class OrderPOM {
 		driver.findElement(By.xpath("//select[@id='input-order-status']/option[@value='*']")).click();
 	}
 
-	public void searchByCustomer() {
+	public void searchByCustomer(String customer) {
 
 		boolean pass = false;
 
 		// input customer
-		sendOrderCustomer("Admin Test");
+		sendOrderCustomer(customer);
 
-		Assert.assertTrue(orderCustomer.getAttribute("value").trim().equals("Admin Test"));
+		Assert.assertTrue(orderCustomer.getAttribute("value").trim().equals(customer));
 
 		// filter return order based on customer
 		driver.findElement(By.xpath("//button[@id='button-filter']")).click();
@@ -324,7 +323,7 @@ public class OrderPOM {
 			pass = false;
 		} else {
 			for (WebElement order : orderList) {
-				if (!order.getText().trim().equals("Admin Test")) {
+				if (!order.getText().trim().equals(customer)) {
 					pass = false;
 					break;
 				} else
@@ -340,14 +339,14 @@ public class OrderPOM {
 
 	}
 
-	public void searchByTotalPrice() {
+	public void searchByTotalPrice(String total) {
 
 		boolean pass = false;
 
 		// input total price
-		sendTotalPrice("525");
+		sendTotalPrice(total);
 
-		Assert.assertTrue(orderTotal.getAttribute("value").trim().equals("525"));
+		Assert.assertTrue(orderTotal.getAttribute("value").trim().equals(total));
 
 		// filter return order based on total price
 		driver.findElement(By.xpath("//button[@id='button-filter']")).click();
@@ -361,7 +360,7 @@ public class OrderPOM {
 			pass = false;
 		} else {
 			for (WebElement order : orderList) {
-				if (!order.getText().trim().contains("525")) {
+				if (!order.getText().trim().contains(total)) {
 					pass = false;
 					break;
 				} else
@@ -377,14 +376,14 @@ public class OrderPOM {
 
 	}
 
-	public void searchByAddedDate() {
+	public void searchByAddedDate(String date) {
 
 		boolean pass = false;
 
 		// input added date
-		sendAddedDate("2019-10-16");
+		sendAddedDate(date);
 
-		Assert.assertTrue(orderAddedDate.getAttribute("value").trim().equals("2019-10-16"));
+		Assert.assertTrue(orderAddedDate.getAttribute("value").trim().equals(date));
 
 		// filter return order based on added date
 		driver.findElement(By.xpath("//button[@id='button-filter']")).click();
@@ -393,12 +392,15 @@ public class OrderPOM {
 		(new WebDriverWait(driver, 20)).until(ExpectedConditions.visibilityOf(order));
 
 		orderList = driver.findElements(By.xpath("//form[@id='form-order']//table/tbody/tr/td[6]"));
+		
+		//convert date to format matching in result
+		date = date.subSequence(8, 10)+"/"+date.subSequence(5, 7)+"/"+date.subSequence(0, 4);
 
 		if (orderList.size() == 0) {
 			pass = false;
 		} else {
 			for (WebElement order : orderList) {
-				if (!order.getText().trim().contains("16/10/2019")) {
+				if (!order.getText().trim().equals(date)) {
 					pass = false;
 					break;
 				} else
@@ -414,14 +416,14 @@ public class OrderPOM {
 
 	}
 
-	public void searchByModifiedDate() {
+	public void searchByModifiedDate(String date) {
 
 		boolean pass = false;
 
 		// input modified date
-		sendModifiedDate("2019-10-16");
+		sendModifiedDate(date);
 
-		Assert.assertTrue(orderModifiedDate.getAttribute("value").trim().equals("2019-10-16"));
+		Assert.assertTrue(orderModifiedDate.getAttribute("value").trim().equals(date));
 
 		// filter return order based on modified date
 		driver.findElement(By.xpath("//button[@id='button-filter']")).click();
@@ -429,13 +431,16 @@ public class OrderPOM {
 		order = driver.findElement(By.xpath("//form[@id='form-order']//table/thead/tr/td[2]"));
 		(new WebDriverWait(driver, 20)).until(ExpectedConditions.visibilityOf(order));
 
-		orderList = driver.findElements(By.xpath("//form[@id='form-order']//table/tbody/tr/td[7]"));
+		orderList = driver.findElements(By.xpath("//form[@id='form-order']//table/tbody/tr/td[7]"));		
+		
+		//convert date to format matching in result
+		date = date.subSequence(8, 10)+"/"+date.subSequence(5, 7)+"/"+date.subSequence(0, 4);
 
 		if (orderList.size() == 0) {
 			pass = false;
 		} else {
 			for (WebElement order : orderList) {
-				if (!order.getText().trim().contains("16/10/2019")) {
+				if (!order.getText().trim().equals(date)) {
 					pass = false;
 					break;
 				} else
@@ -450,4 +455,5 @@ public class OrderPOM {
 		orderModifiedDate.clear();
 
 	}
+
 }
