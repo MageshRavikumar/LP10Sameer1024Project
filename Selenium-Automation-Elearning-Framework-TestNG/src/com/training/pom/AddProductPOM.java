@@ -63,15 +63,17 @@ public class AddProductPOM {
 		this.productCategory.sendKeys(category);
 	}
 	
-	public void selectProduct(String category) {
+	public String selectProduct(String category) {
 		
 		List<WebElement> selectCategory = driver.findElements(By.xpath("//input[@id='input-category']/following-sibling::ul/li/a"));
 		for (WebElement sel:selectCategory) {
-			if(sel.getText().equals(category)) {
+			if(sel.getText().contains(category)) {
 				sel.click();
-				break;
+				category=sel.getText();
+				return category;
 			}
-		}
+		}		
+		return "";
 	}
 	
 	public void clickSaveBtn() {

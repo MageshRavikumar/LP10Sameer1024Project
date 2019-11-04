@@ -96,8 +96,10 @@ public class OrderEditPOM {
 	
 	public void selectProduct(String product) {
 		for (WebElement sel:selectProduct) {
-			if(sel.getText().contains(product))
+			if(sel.getText().contains(product)) {
 				sel.click();
+				break;
+			}
 		}
 	}
 	

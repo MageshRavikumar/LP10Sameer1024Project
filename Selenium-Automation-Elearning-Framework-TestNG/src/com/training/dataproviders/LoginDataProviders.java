@@ -5,7 +5,9 @@ import java.util.List;
 import org.testng.annotations.DataProvider;
 
 import com.training.bean.LoginBean;
+import com.training.bean.UniformBean;
 import com.training.dao.ELearningDAO;
+import com.training.dao.UniformDAO;
 import com.training.readexcel.ApachePOIExcelRead;
 import com.training.readexcel.ReadExcel;
 
@@ -14,25 +16,23 @@ public class LoginDataProviders {
 	@DataProvider(name = "db-inputs")
 	public Object [][] getDBData() {
 
-		List<LoginBean> list = new ELearningDAO().getLogins(); 
+		List<UniformBean> list = new UniformDAO().getModel(); 
 		
 		Object[][] result = new Object[list.size()][]; 
 		int count = 0; 
-		for(LoginBean temp : list){
-			Object[]  obj = new Object[2]; 
-			obj[0] = temp.getUserName(); 
-			obj[1] = temp.getPassword(); 
+		for(UniformBean temp : list){
+			Object[]  obj = new Object[1]; 
+			obj[0] = temp.getModel(); 
 			
 			result[count ++] = obj; 
 		}
-		
-		
+				
 		return result;
 	}
 	
 	@DataProvider(name = "excel-inputs")
 	public Object[][] getExcelData(){
-		String fileName ="C:/Users/Naveen/Desktop/Testing.xlsx"; 
+		String fileName ="C:\\Users\\Sameer\\Downloads\\Reskill\\TestData_UNFTD_012.xlsx"; 
 		return new ApachePOIExcelRead().getExcelContent(fileName); 
 	}
 	
